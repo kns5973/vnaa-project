@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Voice-Native Ambient Assistant</title>
+<title>Voice-Native Ambient Assistant | AMD Slingshot</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=IBM+Plex+Mono:wght@300;400&display=swap');
 
@@ -32,7 +32,6 @@
     overflow-x: hidden;
   }
 
-  /* Subtle grid background */
   body::before {
     content: '';
     position: fixed;
@@ -56,7 +55,6 @@
     gap: 32px;
   }
 
-  /* Header */
   header {
     display: flex;
     flex-direction: column;
@@ -122,7 +120,6 @@
     margin-top: 4px;
   }
 
-  /* Mode selector */
   .mode-bar {
     display: flex;
     gap: 2px;
@@ -153,7 +150,6 @@
     font-weight: bold;
   }
 
-  /* Phone simulator */
   .phone-frame {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -212,7 +208,6 @@
     50% { opacity: 0.3; }
   }
 
-  /* Conversation area */
   .conversation {
     padding: 24px 20px;
     min-height: 320px;
@@ -295,7 +290,6 @@
     50% { transform: translateY(-4px); opacity: 1; }
   }
 
-  /* Waveform visualizer */
   .waveform-container {
     padding: 0 20px 0;
     height: 60px;
@@ -323,7 +317,6 @@
     transition: height 0.1s;
   }
 
-  /* Input area */
   .input-area {
     border-top: 1px solid var(--border);
     padding: 16px 20px;
@@ -402,7 +395,6 @@
     50% { box-shadow: 0 0 0 8px rgba(232,255,90,0); }
   }
 
-  /* Quick prompts */
   .quick-prompts {
     display: flex;
     flex-wrap: wrap;
@@ -427,7 +419,6 @@
     color: var(--accent2);
   }
 
-  /* SMS mode */
   .sms-frame {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -439,7 +430,6 @@
   .sms-frame.visible { display: block; }
   .phone-frame.hidden { display: none; }
 
-  /* Info cards */
   .info-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -456,38 +446,13 @@
     gap: 8px;
   }
 
-  .info-card-icon {
-    font-size: 20px;
-  }
-
-  .info-card-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text);
-  }
-
-  .info-card-desc {
-    font-size: 10px;
-    color: var(--muted);
-    line-height: 1.5;
-  }
-
-  .info-card-badge {
-    display: inline-block;
-    font-size: 9px;
-    padding: 2px 7px;
-    border-radius: 20px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-top: 2px;
-    width: fit-content;
-  }
-
+  .info-card-icon { font-size: 20px; }
+  .info-card-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: var(--text); }
+  .info-card-desc { font-size: 10px; color: var(--muted); line-height: 1.5; }
+  .info-card-badge { display: inline-block; font-size: 9px; padding: 2px 7px; border-radius: 20px; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; width: fit-content; }
   .badge-green { background: rgba(90,255,206,0.1); color: var(--accent2); border: 1px solid rgba(90,255,206,0.2); }
   .badge-yellow { background: rgba(232,255,90,0.1); color: var(--accent); border: 1px solid rgba(232,255,90,0.2); }
 
-  /* API key setup */
   .setup-card {
     background: rgba(232,255,90,0.04);
     border: 1px solid rgba(232,255,90,0.15);
@@ -498,56 +463,8 @@
     gap: 10px;
   }
 
-  .setup-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--accent);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .key-row {
-    display: flex;
-    gap: 8px;
-  }
-
-  .key-input {
-    flex: 1;
-    background: #0d0d0d;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 8px 12px;
-    color: var(--text);
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px;
-    outline: none;
-  }
-
-  .key-input::placeholder { color: var(--muted); }
-  .key-input:focus { border-color: rgba(232,255,90,0.3); }
-
-  .key-btn {
-    background: var(--accent);
-    color: #000;
-    border: none;
-    border-radius: 6px;
-    padding: 8px 14px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.15s;
-    white-space: nowrap;
-  }
-
-  .key-btn:hover { background: #f0ff7a; }
-
-  .setup-note {
-    font-size: 10px;
-    color: var(--muted);
-    line-height: 1.5;
-  }
+  .setup-title { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; }
+  .setup-note { font-size: 10px; color: var(--muted); line-height: 1.5; }
 
   .empty-state {
     display: flex;
@@ -562,18 +479,9 @@
     line-height: 1.6;
   }
 
-  .empty-icon {
-    font-size: 32px;
-    opacity: 0.4;
-  }
+  .empty-icon { font-size: 32px; opacity: 0.4; }
 
-  footer {
-    font-size: 10px;
-    color: var(--muted);
-    text-align: center;
-    letter-spacing: 0.05em;
-    line-height: 1.6;
-  }
+  footer { font-size: 10px; color: var(--muted); text-align: center; letter-spacing: 0.05em; line-height: 1.6; margin-top: 20px; }
 </style>
 </head>
 <body>
@@ -583,30 +491,21 @@
   <header>
     <div class="logo-row">
       <div class="logo-icon"></div>
-      <span class="logo-text">VNAA — Prototype</span>
+      <span class="logo-text">VNAA — Secure Proxy Mode</span>
     </div>
     <h1>Voice-Native<br><span>Ambient</span> Assistant</h1>
-    <p class="subtitle">No smartphone. No data plan. No digital literacy required. Just speak or text a phone number.</p>
+    <p class="subtitle">A radical AI interface designed for the 2.7 billion people currently offline. Zero GUI. Zero barriers.</p>
   </header>
-
-  <div class="setup-card">
-    <div class="setup-title">⚡ Connect to Gemini API</div>
-    <div class="key-row">
-      <input class="key-input" type="password" id="apiKey" placeholder="AIzaSy..." />
-      <button class="key-btn" onclick="saveKey()">Connect</button>
-    </div>
-    <div class="setup-note" id="keyStatus">Enter your Gemini API key to activate the assistant. Key stays in your browser memory only.</div>
-  </div>
 
   <div class="mode-bar">
     <button class="mode-btn active" onclick="setMode('voice')">📞 Voice Call</button>
     <button class="mode-btn" onclick="setMode('sms')">💬 SMS</button>
-    <button class="mode-btn" onclick="setMode('info')">ℹ️ Deploy</button>
+    <button class="mode-btn" onclick="setMode('info')">ℹ️ Tech Stack</button>
   </div>
 
   <div class="phone-frame" id="voicePanel">
     <div class="phone-header">
-      <span class="phone-number">Calling <span>+1 (555) 0-ASSIST</span></span>
+      <span class="phone-number">Calling <span>Live Assistant</span></span>
       <div class="call-status">
         <div class="status-dot" id="statusDot"></div>
         <span id="statusText">Ready</span>
@@ -616,7 +515,7 @@
     <div class="conversation" id="conversation">
       <div class="empty-state" id="emptyState">
         <div class="empty-icon">🎙️</div>
-        <div>Speak or type a message to begin.<br>Try: "When is the next bus to the pharmacy?"</div>
+        <div>Tap the mic or type to speak to the assistant.<br>Try: "What is the weather like in Delhi?"</div>
       </div>
     </div>
 
@@ -626,15 +525,13 @@
 
     <div class="input-area">
       <div class="quick-prompts">
-        <button class="quick-btn" onclick="quickSend('When is the next bus to the pharmacy?')">🚌 Bus schedule</button>
-        <button class="quick-btn" onclick="quickSend('What is the weather like today?')">🌤 Weather</button>
-        <button class="quick-btn" onclick="quickSend('Remind me to take my medication at 8pm')">💊 Reminder</button>
-        <button class="quick-btn" onclick="quickSend('How do I call emergency services?')">🆘 Emergency</button>
-        <button class="quick-btn" onclick="quickSend('What are the nearest pharmacies open now?')">🏥 Pharmacy</button>
+        <button class="quick-btn" onclick="quickSend('When is the next bus to the central pharmacy?')">🚌 Bus schedule</button>
+        <button class="quick-btn" onclick="quickSend('What is the weather in Mumbai?')">🌤 Weather</button>
+        <button class="quick-btn" onclick="quickSend('Tell me a helpful health tip for today.')">💊 Health Tip</button>
       </div>
       <div class="input-row">
         <button class="mic-btn" id="micBtn" onclick="toggleMic()" title="Hold to speak">🎤</button>
-        <textarea class="text-input" id="textInput" placeholder="Type your question here..." rows="1"
+        <textarea class="text-input" id="textInput" placeholder="Type your message..." rows="1"
           onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
         <button class="send-btn" id="sendBtn" onclick="sendMessage()">↑</button>
       </div>
@@ -643,10 +540,10 @@
 
   <div class="sms-frame" id="smsPanel">
     <div class="phone-header">
-      <span class="phone-number">SMS to <span>+1 (555) 0-ASSIST</span></span>
+      <span class="phone-number">SMS to <span>+1-CELLULAR</span></span>
       <div class="call-status">
         <div class="status-dot active"></div>
-        <span>Active</span>
+        <span>Network Active</span>
       </div>
     </div>
 
@@ -670,75 +567,50 @@
     <div class="info-grid">
       <div class="info-card">
         <div class="info-card-icon">📞</div>
-        <div class="info-card-title">Phone Call</div>
-        <div class="info-card-desc">Works on any phone, landline, or feature phone. No smartphone needed.</div>
-        <div class="info-card-badge badge-green">No Data Plan</div>
+        <div class="info-card-title">Telephony Layer</div>
+        <div class="info-card-desc">Routes real voice calls/SMS from any phone (no data required) via Twilio webhooks.</div>
+        <div class="info-card-badge badge-green">Standard 2G/Voice</div>
       </div>
       <div class="info-card">
-        <div class="info-card-icon">💬</div>
-        <div class="info-card-title">SMS / Text</div>
-        <div class="info-card-desc">Basic texting on any cellular device. Works in remote areas.</div>
-        <div class="info-card-badge badge-green">Works Offline*</div>
+        <div class="info-card-icon">🧠</div>
+        <div class="info-card-title">Gemini 2.5 Flash</div>
+        <div class="info-card-desc">State-of-the-art LLM with Tool Use/Function Calling for real-time data orchestration.</div>
+        <div class="info-card-badge badge-green">Agentic AI</div>
       </div>
       <div class="info-card">
         <div class="info-card-icon">🔌</div>
-        <div class="info-card-title">ESP32 Device</div>
-        <div class="info-card-desc">~$12 hardware. Microphone + speaker. Fully standalone.</div>
-        <div class="info-card-badge badge-yellow">~$12 Hardware</div>
+        <div class="info-card-title">Python Backend</div>
+        <div class="info-card-desc">Secure Flask server handles STT, TTS, and API tool execution on the edge.</div>
+        <div class="info-card-badge badge-yellow">Railway.app</div>
       </div>
       <div class="info-card">
-        <div class="info-card-icon">☁️</div>
-        <div class="info-card-title">Cloud Deploy</div>
-        <div class="info-card-desc">Railway / Render / Fly.io. Free tier works for prototype.</div>
-        <div class="info-card-badge badge-yellow">Free Tier</div>
-      </div>
-    </div>
-
-    <div class="setup-card">
-      <div class="setup-title">🚀 Deploy in 4 Steps</div>
-      <div class="setup-note" style="font-size:11px; line-height:1.8;">
-        1. <strong style="color:var(--text)">Clone repo</strong> → install requirements.txt<br>
-        2. <strong style="color:var(--text)">Set env vars</strong> → GEMINI_API_KEY, TWILIO creds<br>
-        3. <strong style="color:var(--text)">Deploy to Railway</strong> → <code style="color:var(--accent2)">railway up</code><br>
-        4. <strong style="color:var(--text)">Point Twilio webhooks</strong> → your Railway URL<br><br>
-        <span style="color:var(--accent)">Total time: ~15 minutes. Cost: ~$1/month.</span>
+        <div class="info-card-icon">🏠</div>
+        <div class="info-card-title">Ambient Edge</div>
+        <div class="info-card-desc">Optional $12 standalone hardware device using ESP32 for always-on accessibility.</div>
+        <div class="info-card-badge badge-yellow">IoT Capable</div>
       </div>
     </div>
   </div>
 
   <footer>
-    Voice-Native Ambient Assistant · Prototype Simulator<br>
-    Calls & SMS powered by Twilio · AI by Gemini · No GUI. No apps. No barriers.
+    Voice-Native Ambient Assistant · AMD Slingshot Submission 2026<br>
+    Powered by Google Gemini · Infrastructure by Railway & Twilio
   </footer>
 
 </div>
 
 <script>
-  let apiKey = '';
   let isLoading = false;
   let recognition = null;
   let isRecording = false;
   let waveformInterval = null;
   let currentMode = 'voice';
 
-  // ── Init waveform bars ──
   const waveformEl = document.getElementById('waveform');
   for (let i = 0; i < 28; i++) {
     const bar = document.createElement('div');
     bar.className = 'waveform-bar';
     waveformEl.appendChild(bar);
-  }
-
-  function saveKey() {
-    const input = document.getElementById('apiKey').value.trim();
-    if (!input.startsWith('AIzaSy')) {
-      document.getElementById('keyStatus').textContent = '⚠️  That doesn\'t look like a valid key. Should start with AIzaSy';
-      document.getElementById('keyStatus').style.color = '#ff5a5a';
-      return;
-    }
-    apiKey = input;
-    document.getElementById('keyStatus').textContent = '✓ Connected! The assistant is ready.';
-    document.getElementById('keyStatus').style.color = '#5affce';
   }
 
   function setMode(mode) {
@@ -759,40 +631,17 @@
     statusText.textContent = text;
   }
 
-  function handleKey(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
-    }
-  }
-
-  function handleSmsKey(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      sendSms();
-    }
-  }
-
-  function autoResize(el) {
-    el.style.height = 'auto';
-    el.style.height = Math.min(el.scrollHeight, 120) + 'px';
-  }
-
-  function quickSend(text) {
-    document.getElementById('textInput').value = text;
-    sendMessage();
-  }
+  function handleKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }
+  function handleSmsKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendSms(); } }
+  function autoResize(el) { el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight, 120) + 'px'; }
+  function quickSend(text) { document.getElementById('textInput').value = text; sendMessage(); }
 
   function appendMessage(container, role, text) {
     const emptyState = document.getElementById('emptyState');
     if (emptyState) emptyState.remove();
-
     const msg = document.createElement('div');
     msg.className = `message ${role}`;
-    msg.innerHTML = `
-      <span class="msg-label">${role === 'user' ? 'You' : 'Assistant'}</span>
-      <div class="msg-bubble">${text}</div>
-    `;
+    msg.innerHTML = `<span class="msg-label">${role === 'user' ? 'You' : 'Assistant'}</span><div class="msg-bubble">${text}</div>`;
     container.appendChild(msg);
     container.scrollTop = container.scrollHeight;
     return msg;
@@ -802,127 +651,65 @@
     const el = document.createElement('div');
     el.className = 'message assistant';
     el.id = 'typingIndicator';
-    el.innerHTML = `
-      <span class="msg-label">Assistant</span>
-      <div class="msg-bubble">
-        <div class="typing-indicator">
-          <div class="typing-dot"></div>
-          <div class="typing-dot"></div>
-          <div class="typing-dot"></div>
-        </div>
-      </div>
-    `;
+    el.innerHTML = `<span class="msg-label">Assistant</span><div class="msg-bubble"><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>`;
     container.appendChild(el);
     container.scrollTop = container.scrollHeight;
   }
 
-  function removeTyping() {
-    const el = document.getElementById('typingIndicator');
-    if (el) el.remove();
-  }
+  function removeTyping() { const el = document.getElementById('typingIndicator'); if (el) el.remove(); }
 
   function startWaveform() {
-    const container = document.getElementById('waveformContainer');
-    container.classList.add('visible');
+    document.getElementById('waveformContainer').classList.add('visible');
     const bars = document.querySelectorAll('.waveform-bar');
-    waveformInterval = setInterval(() => {
-      bars.forEach(bar => {
-        const h = Math.random() * 32 + 4;
-        bar.style.height = h + 'px';
-      });
-    }, 80);
+    waveformInterval = setInterval(() => { bars.forEach(bar => { bar.style.height = (Math.random() * 32 + 4) + 'px'; }); }, 80);
   }
 
   function stopWaveform() {
-    const container = document.getElementById('waveformContainer');
-    container.classList.remove('visible');
+    document.getElementById('waveformContainer').classList.remove('visible');
     clearInterval(waveformInterval);
     document.querySelectorAll('.waveform-bar').forEach(b => b.style.height = '4px');
   }
 
-  async function callGemini(message) {
-    if (!apiKey) {
-      return "Please enter your Gemini API key above to activate the assistant.";
-    }
-
-    const systemPrompt = `You are a helpful voice assistant designed for elderly users and people with limited digital literacy. 
-
-CRITICAL RULES:
-- Keep responses SHORT (2-3 sentences max).
-- Speak in plain, simple, warm language. No jargon.
-- Be conversational, like a kind neighbor helping out.
-- If asked about transit/buses, weather, local services — acknowledge you'd normally fetch live data, and give a helpful general answer.
-- Never mention APIs, AI, prompts, or technical terms.
-- Always end by briefly offering to help with something else.`;
-
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-    
+  async function callProxy(message) {
+    // Relative URL works because the frontend is served by the same Flask server
+    const url = "/api/chat";
     const response = await fetch(url, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        systemInstruction: {
-          parts: [{ text: systemPrompt }]
-        },
-        contents: [{
-          role: "user",
-          parts: [{ text: message }]
-        }],
-        generationConfig: {
-          maxOutputTokens: 300
-        }
-      })
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: message })
     });
-
-    if (!response.ok) {
-      const err = await response.json();
-      throw new Error(err.error?.message || 'API error');
-    }
-
+    if (!response.ok) { const err = await response.json(); throw new Error(err.error || 'Server error'); }
     const data = await response.json();
-    return data.candidates[0].content.parts[0].text;
+    return data.response;
   }
 
   async function sendMessage() {
     const input = document.getElementById('textInput');
     const text = input.value.trim();
     if (!text || isLoading) return;
-
     isLoading = true;
     input.value = '';
     input.style.height = 'auto';
     document.getElementById('sendBtn').disabled = true;
-
     const conversation = document.getElementById('conversation');
     appendMessage(conversation, 'user', text);
-
     setStatus('active', 'Processing...');
     startWaveform();
     showTyping(conversation);
 
     try {
-      const reply = await callGemini(text);
+      const reply = await callProxy(text);
       removeTyping();
       stopWaveform();
       appendMessage(conversation, 'assistant', reply);
       setStatus('', 'Ready');
-
-      // Text-to-speech
-      if ('speechSynthesis' in window) {
-        const utter = new SpeechSynthesisUtterance(reply);
-        utter.rate = 0.9;
-        utter.pitch = 1.0;
-        speechSynthesis.speak(utter);
-      }
+      if ('speechSynthesis' in window) { const utter = new SpeechSynthesisUtterance(reply); utter.rate = 0.95; speechSynthesis.speak(utter); }
     } catch (err) {
       removeTyping();
       stopWaveform();
-      appendMessage(conversation, 'assistant', `Error: ${err.message}`);
+      appendMessage(conversation, 'assistant', `I'm sorry, I'm having trouble reaching the server. Please try again.`);
       setStatus('', 'Ready');
     }
-
     isLoading = false;
     document.getElementById('sendBtn').disabled = false;
   }
@@ -931,70 +718,35 @@ CRITICAL RULES:
     const input = document.getElementById('smsInput');
     const text = input.value.trim();
     if (!text || isLoading) return;
-
     isLoading = true;
     input.value = '';
     input.style.height = 'auto';
     document.getElementById('smsSendBtn').disabled = true;
-
     const conversation = document.getElementById('smsConversation');
     appendMessage(conversation, 'user', text);
     showTyping(conversation);
 
     try {
-      const reply = await callGemini(text);
+      const reply = await callProxy(text);
       removeTyping();
       appendMessage(conversation, 'assistant', reply);
     } catch (err) {
       removeTyping();
-      appendMessage(conversation, 'assistant', `Error: ${err.message}`);
+      appendMessage(conversation, 'assistant', `Network Error: Could not reach the AI gateway.`);
     }
-
     isLoading = false;
     document.getElementById('smsSendBtn').disabled = false;
   }
 
   function toggleMic() {
-    if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
-      alert('Speech recognition not supported in this browser. Try Chrome.');
-      return;
-    }
-
-    if (isRecording) {
-      recognition.stop();
-      return;
-    }
-
+    if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) { alert('Speech recognition not supported.'); return; }
+    if (isRecording) { recognition.stop(); return; }
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     recognition = new SpeechRecognition();
     recognition.continuous = false;
-    recognition.interimResults = false;
-    recognition.lang = 'en-US';
-
-    recognition.onstart = () => {
-      isRecording = true;
-      document.getElementById('micBtn').classList.add('recording');
-      setStatus('listening', 'Listening...');
-    };
-
-    recognition.onresult = (e) => {
-      const transcript = e.results[0][0].transcript;
-      document.getElementById('textInput').value = transcript;
-      sendMessage();
-    };
-
-    recognition.onend = () => {
-      isRecording = false;
-      document.getElementById('micBtn').classList.remove('recording');
-      setStatus('', 'Ready');
-    };
-
-    recognition.onerror = (e) => {
-      isRecording = false;
-      document.getElementById('micBtn').classList.remove('recording');
-      setStatus('', 'Ready');
-    };
-
+    recognition.onstart = () => { isRecording = true; document.getElementById('micBtn').classList.add('recording'); setStatus('listening', 'Listening...'); };
+    recognition.onresult = (e) => { document.getElementById('textInput').value = e.results[0][0].transcript; sendMessage(); };
+    recognition.onend = () => { isRecording = false; document.getElementById('micBtn').classList.remove('recording'); setStatus('', 'Ready'); };
     recognition.start();
   }
 </script>
