@@ -39,8 +39,9 @@ def get_live_weather(location: str) -> str:
     """Gets the current real-time weather and temperature for a given city or location."""
     logger.info(f"Tool called: get_live_weather for {location}")
     try:
-        # wttr.in is a free weather API that requires no authentication
-        r = requests.get(f"https://wttr.in/{location}?format=%C+%t")
+        # ADDED timeout=5 to prevent Gunicorn worker freezes
+        r = requests.get(f"https://wttr.in/{location}?format=%C+%t", timeout=5)
+        
         if r.status_code == 200:
             return f"The current weather in {location} is {r.text.strip()}."
         return "Weather data is currently unavailable."
