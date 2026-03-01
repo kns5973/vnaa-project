@@ -178,16 +178,12 @@ def health():
 
 @app.route("/", methods=["GET"])
 def index():
-    return jsonify({
-        "service": "Voice-Native Ambient Assistant",
-        "endpoints": {
-            "POST /voice/incoming": "Twilio voice webhook (incoming call)",
-            "POST /voice/respond": "Twilio voice webhook (speech response)",
-            "POST /sms/incoming": "Twilio SMS webhook",
-            "POST /api/chat": "REST API for testing { message: string }",
-            "GET /health": "Health check"
-        }
-    })
+    """Serve the web simulator UI when someone visits the main link."""
+    try:
+        with open("simulator.html", "r", encoding="utf-8") as f:
+            return f.read()
+    except Exception as e:
+        return f"Error loading simulator: {e}"
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
