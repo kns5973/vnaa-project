@@ -36,18 +36,34 @@ CRITICAL RULES:
 # ─── AGENTIC TOOLS (FUNCTION CALLING) ──────────────────────────────────────────
 
 def get_live_weather(location: str) -> str:
-    """Gets the current real-time weather and temperature for a given city or location."""
+    """Gets real-time weather using OpenWeatherMap API."""
+    api_key = os.environ.get("OPENWEATHER_API_KEY")
+    if not api_key:
+        return "Weather service is currently unconfigured."
+
     logger.info(f"Tool called: get_live_weather for {location}")
     try:
-        # ADDED timeout=5 to prevent Gunicorn worker freezes
-        r = requests.get(f"https://wttr.in/{location}?format=%C+%t", timeout=5)
+        # Step 1: Get coordinates for the location name
+        geo_url = f"http://api.openweathermap.org/geo/1.0/direct?q={location}&limit=1&appid={api_key}"
+        geo_res = requests.get(geo_url, timeout=5).json()
         
-        if r.status_code == 200:
-            return f"The current weather in {location} is {r.text.strip()}."
-        return "Weather data is currently unavailable."
+        if not geo_res:
+            return f"I couldn't find a location named {location}."
+
+        lat, lon = geo_res[0]["lat"], geo_res[0]["lon"]
+
+        # Step 2: Get actual weather data
+        weather_url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={api_key}&units=metric"
+        w_res = requests.get(weather_url, timeout=5).json()
+        
+        temp = w_res["main"]["temp"]
+        desc = w_res["weather"][0]["description"]
+        
+        return f"The current weather in {location} is {desc} with a temperature of {temp}°C."
+
     except Exception as e:
-        logger.error(f"Weather tool error: {e}")
-        return "Weather service is down."
+        logger.error(f"OpenWeather Error: {e}")
+        return "I'm having trouble connecting to the weather service right now."
 
 def get_next_bus(bus_stop_name: str) -> str:
     """Gets the arrival time of the next bus for a specific bus stop."""
