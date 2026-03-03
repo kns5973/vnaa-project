@@ -36,19 +36,32 @@ CRITICAL RULES:
 # ─── AGENTIC TOOLS (FUNCTION CALLING) ──────────────────────────────────────────
 
 def get_live_weather(location: str) -> str:
-    """Gets the current real-time weather using wttr.in with timeout protection."""
+    """Gets real-time weather using Open-Meteo (No API key required)."""
     logger.info(f"Tool called: get_live_weather for {location}")
     try:
-        # Reverting to wttr.in but KEEPING the 5-second timeout
-        r = requests.get(f"https://wttr.in/{location}?format=%C+%t", timeout=5)
+        # Step 1: Geocoding (Convert city name to lat/long)
+        geo_url = f"https://geocoding-api.open-meteo.com/v1/search?name={location}&count=1&language=en&format=json"
+        geo_res = requests.get(geo_url, timeout=5).json()
         
-        if r.status_code == 200:
-            return f"The current weather in {location} is {r.text.strip()}."
-        return "Weather data is currently unavailable."
+        if not geo_res.get("results"):
+            return f"I couldn't find a location named {location}."
+
+        data = geo_res["results"][0]
+        lat, lon = data["latitude"], data["longitude"]
+        city_name = data.get("name", location)
+
+        # Step 2: Fetch actual weather
+        weather_url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current_weather=true"
+        w_res = requests.get(weather_url, timeout=5).json()
+        
+        current = w_res["current_weather"]
+        temp = current["temperature"]
+        # Open-Meteo provides codes; we'll provide the temp clearly
+        return f"The current temperature in {city_name} is {temp}°C."
+
     except Exception as e:
-        logger.error(f"Weather tool error: {e}")
-        # This prevents the AI from hanging if the site is down
-        return "The weather service is currently unresponsive, but everything else is working fine!"
+        logger.error(f"Open-Meteo Error: {e}")
+        return "The weather service is temporarily unavailable."
 
 def get_next_bus(bus_stop_name: str) -> str:
     """Gets the arrival time of the next bus for a specific bus stop."""
